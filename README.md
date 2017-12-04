@@ -5,4 +5,4 @@ Nagios is a powerful IT infrastructure monitoring tool. It is designed to ease t
 ## Prerequisites 
 # Authors 
 # Licence 
-This project is licenced under the 
+This project is licenced under the GPL-3.0 Licence - see the LICENCE file for details  
