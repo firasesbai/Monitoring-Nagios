@@ -6,9 +6,9 @@ Nagios is a powerful IT infrastructure monitoring tool. It is designed to ease t
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 ### Prerequisites
 #### Installing
-* Nagios Core 4.2.4 : [install-nagios.sh](https://github.com/firasesbai/installing/install-nagios.sh)
-* NRPE : [install-nrpe.sh](https://github.com/firasesbai/installing/install-nrpe.sh)
-* NSCA [install-nsca.sh](https://github.com/firasesbai/installing/install-nsca.sh)
+* Nagios Core 4.2.4 on the monitoring server: [install-nagios.sh](https://github.com/firasesbai/Monitoring-Nagios/installing/install-nagios.sh)
+* NRPE on the target and monitoring server: [install-nrpe.sh](https://github.com/firasesbai/Monitoring-Nagios/installing/install-nrpe.sh)
+* NSCA on the monitoring server :[install-nsca.sh](https://github.com/firasesbai/Monitoring-Nagios/installing/install-nsca.sh)
 ### Configuration 
 * **Host definition**
 1. Open the main Nagios configuration file  
@@ -42,7 +42,7 @@ define host {
 
 **check_interface_status:** Sends an alert to the nagios server whenver the interface changes its state from UP to DOWN. 
 
-**Active check: [check_throughput.sh](https://github.com/firasesbai/plugins/check_throughput.sh)**
+**Active check: [check_throughput.sh](https://github.com/firasesbai/Monitoring-Nagios/plugins/check_throughput.sh)**
 
 *On the target server*
 
@@ -108,7 +108,7 @@ define service {
 sudo /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
 sudo service nagios restart 
 ```
-**Passive check: [check_interface_status.sh](https://github.com/firasesbai/plugins/check_interface_status.sh)**
+**Passive check: [check_interface_status.sh](https://github.com/firasesbai/Monitoring-Nagios/plugins/check_interface_status.sh)**
 
 *On the monitoring server* 
 
@@ -157,7 +157,7 @@ sudo chmod +x check_interface_status.sh
 sudo nano /etc/nagios/nrpe.cfg
 command[check_interface_status]=/usr/lib/nagios/plugins/check_interface_status.sh  
 ```
-8. Write a script /usr/local/sbin/[nsca_interface_state.sh](https://github.com/firasesbai/plugins/nsca_interface_state.sh) that reads the output of the interface_status plugin, converts it to an nsca-type service check result, and sends it to the nagios server. 
+8. Write a script /usr/local/sbin/[nsca_interface_state.sh](https://github.com/firasesbai/Monitoring-Nagios/plugins/nsca_interface_state.sh) that reads the output of the interface_status plugin, converts it to an nsca-type service check result, and sends it to the nagios server. 
 9. Schedule this script to run at regular intervals using **Cron** 
 ```
 sudo crontab -e 
