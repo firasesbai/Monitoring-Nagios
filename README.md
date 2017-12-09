@@ -6,9 +6,9 @@ Nagios is a powerful IT infrastructure monitoring tool. It is designed to ease t
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 ### Prerequisites
 #### Installing
-* Nagios Core 4.2.4 on the monitoring server: [install-nagios.sh](https://github.com/firasesbai/Monitoring-Nagios/installing/install-nagios.sh)
-* NRPE on the target and monitoring server: [install-nrpe.sh](https://github.com/firasesbai/Monitoring-Nagios/installing/install-nrpe.sh)
-* NSCA on the monitoring server :[install-nsca.sh](https://github.com/firasesbai/Monitoring-Nagios/installing/install-nsca.sh)
+* Nagios Core 4.2.4 on the monitoring server: [install-nagios.sh](Monitoring-Nagios/installing/install-nagios.sh)
+* Nagios Remote Plugin Executor (**NRPE**) on the target and monitoring server: [install-nrpe.sh](https://github.com/firasesbai/Monitoring-Nagios/installing/install-nrpe.sh)
+* Nagios Service Check Acceptor (**NSCA**) on the monitoring server : [install-nsca.sh](https://github.com/firasesbai/Monitoring-Nagios/installing/install-nsca.sh)
 ### Configuration 
 * **Host definition**
 1. Open the main Nagios configuration file  
