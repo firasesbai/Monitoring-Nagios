@@ -42,41 +42,57 @@ define host {
 
 **check_interface_status:** Sends an alert to the nagios server whenver the interface changes its state from UP to DOWN. 
 
-**Active check: [check_throughput.sh](https://github.com/firasesbai/)**
+**Active check: [check_throughput.sh](https://github.com/firasesbai/plugins/check_throughput.sh)**
 
 *On the target server*
 
-1. Change to the directory containing Nagios plugins
+1. Edit the configuration file of NRPE in order to add the IP address of the Nagios server: Nagios_Server_IP
+```
+allowed_hosts=127.0.0.1,Nagios_Server_IP
+```
+2. Change to the directory containing Nagios plugins
 ```
 cd /usr/lib/nagios/plugins
 ```
-2. Create a new file containing the script of the plugin 
+3. Create a new file containing the script of the plugin 
 ```
 sudo touch check_throughput.sh
 ```
-3. Make the script executable 
+4. Make the script executable 
 ```
 sudo chmod +x check_throughput.sh
 ```
-4. Add the script to the NRPE configuration 
+5. Add the script to the NRPE configuration 
 ```
 sudo nano /etc/nagios/nrpe.cfg
 command[check_throughput]=/usr/lib/nagios/plugins/check_throughput.sh  
 ```
-5. Restart Nagios NRPE service 
+6. Restart Nagios NRPE service 
 ```
 sudo service nagios-nrpe-server restart 
 ```
 *On the monitoring server*
 
-6. Define new command corresponding to our plugin in /etc/nagios/objects/commands.cfg
+7. Verify that the check_nrpe plugin is installed correctly
+```
+ls /usr/local/nagios/libexec/check_nrpe
+```
+8. Add a new command related to the check_nrpe in the Nagios Core commands configuration file 
+```
+sudo nano /usr/local/nagios/etc/objects/commands.cfg
+define command {
+  command_name    check_nrpe
+  command_line    $USER1$/check_nrpe -H $HOSTADDRESS$ -c $ARG1$
+ }
+```
+9. Define new command corresponding to our plugin in /usr/local/nagios/etc/objects/commands.cfg
 ```
 define command {
   command_name        check_throughput
   command_line        $USER1$/check_nrpe -H $HOSTADDRESS$ -c check_thgroughput $ARG1$ 
  }
 ```
-7. Define new service for this command in configuration file of our server: server.cfg 
+10. Define new service for this command in configuration file of our server: server.cfg 
 ```
 define service {
   use                 generic-service
@@ -87,12 +103,12 @@ define service {
   retry_interval      1
  }
 ```
-8. Validate the configuration and restart the nagios core server 
+11. Validate the configuration and restart the nagios core server 
 ```
 sudo /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
 sudo service nagios restart 
 ```
-**Passive check: [check_interface_status.sh](https://github.com/firasesbai/)**
+**Passive check: [check_interface_status.sh](https://github.com/firasesbai/plugins/check_interface_status.sh)**
 
 *On the monitoring server* 
 
@@ -141,7 +157,7 @@ sudo chmod +x check_interface_status.sh
 sudo nano /etc/nagios/nrpe.cfg
 command[check_interface_status]=/usr/lib/nagios/plugins/check_interface_status.sh  
 ```
-8. Write a script /usr/local/sbin/[nsca_interface_state.sh](https://github.com/firasesbai/) that reads the output of the interface_status plugin, converts it to an nsca-type service check result, and sends it to the nagios server. 
+8. Write a script /usr/local/sbin/[nsca_interface_state.sh](https://github.com/firasesbai/plugins/nsca_interface_state.sh) that reads the output of the interface_status plugin, converts it to an nsca-type service check result, and sends it to the nagios server. 
 9. Schedule this script to run at regular intervals using **Cron** 
 ```
 sudo crontab -e 
