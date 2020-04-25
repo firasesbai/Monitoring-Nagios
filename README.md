@@ -173,4 +173,4 @@ sudo crontab -e
 ## Authors 
 * **Firas Esbai** - *Initial work* - [Firas Esbai](https://github.com/firasesbai) 
 ## Licence 
-This project is licenced under the [GPL-3.0 Licence](https://www.gnu.org/licenses/gpl-3.0.en.html) - see the [LICENCE](LICENCE.md) file for details.  
+This project is licenced under the [Apache-2.0 Licence](https://www.apache.org/licenses/LICENSE-2.0)  
